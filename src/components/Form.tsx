@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { type FormEvent } from "react";
-
-function Form() {
+type Props = {
+  fetchData: (username: string) => void;
+};
+function Form({ fetchData }: Props) {
   const [username, setUsername] = useState("");
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    const response = await fetch(`https://api.github.com/users/${username}`);
-    if (response.status === 200) {
-      const data = await response.json();
-      console.log(data);
-    } else {
-      alert("User not found");
-    }
+    // Call fetchData here with the username
+    fetchData(username);
+    setUsername("");
   }
   return (
     <form className="w-full max-w-sm mx-auto" onSubmit={handleSubmit}>
