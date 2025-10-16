@@ -14,14 +14,14 @@ export type GitHubData = {
 };
 
 function App() {
-  const [data, setData] = useState<GitHubData>();
+  const [cards, setCards] = useState<GitHubData[]>([]);
 
   async function fetchData(username: string) {
     const response = await fetch(`https://api.github.com/users/${username}`);
     if (response.status === 200) {
       const data = await response.json();
-      setData(data);
-      console.log(data);
+      setCards([...cards, data]);
+      // console.log(data);
     } else {
       alert("Username not found");
     }
@@ -29,7 +29,11 @@ function App() {
   return (
     <div>
       <Form fetchData={fetchData} />
-      {data && <Card data={data} />}
+      <div className="mt-10">
+        {cards.map((card, index) => (
+          <Card key={index} data={card} />
+        ))}
+      </div>
     </div>
   );
 }
