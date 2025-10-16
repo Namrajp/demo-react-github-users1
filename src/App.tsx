@@ -14,7 +14,7 @@ export type GitHubData = {
 };
 
 function App() {
-  const [data, setData] = useState<GithubData>();
+  const [data, setData] = useState<GitHubData>();
 
   async function fetchData(username: string) {
     const response = await fetch(`https://api.github.com/users/${username}`);
